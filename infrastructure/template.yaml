@@ -2,7 +2,7 @@ Resources:
   NotebookWrite:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: backend/handlers/notebook_write.notepad_post
+      Handler: backend/handlers/notebook_post.notepad_post
       Runtime: python3.11
       Events:
         NotebookWriteApi:
