@@ -1,11 +1,11 @@
 Resources:
-  CreateNoteFunction:
+  NotebookWrite:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: backend/handlers/create_note.lambda_handler
+      Handler: backend/handlers/notebook_write.lambda_handler
       Runtime: python3.11
       Events:
-        CreateNoteApi:
+        NotebookWriteApi:
           Type: Api
           Properties:
             Path: /notes
