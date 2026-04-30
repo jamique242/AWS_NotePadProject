@@ -45,15 +45,15 @@ The application follows a serverless architecture:
 5. Response is returned to the frontend
 
 ## API 💼
-POST   /notes
-GET    /notes
-PUT    /notes/{id}
+- POST   /notes
+- GET    /notes
+- PUT    /notes/{id}
 
 ## Data Model 🧱
-note_id **(PK)**
-content
-created_at
-updated_at
+- note_id **(PK)**
+- content
+- created_at
+- updated_at
 
 ## Design Decisions 🧐
 - Serverless design was chosen for scalability and low operational overhead ~$2pm 
