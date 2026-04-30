@@ -1,0 +1,12 @@
+Resources:
+  CreateNoteFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: backend/handlers/create_note.lambda_handler
+      Runtime: python3.11
+      Events:
+        CreateNoteApi:
+          Type: Api
+          Properties:
+            Path: /notes
+            Method: post
