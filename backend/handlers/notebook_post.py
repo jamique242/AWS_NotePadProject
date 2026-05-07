@@ -21,7 +21,7 @@ def notepad_post(event, context):
         "created_at": datetime.utcnow().isoformat()
     }
 
-    table.put_item(Item=item)
+    #table.put_item(Item=item)
 
     return {
         "statusCode": 200,
