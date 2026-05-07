@@ -2,7 +2,7 @@ Resources:
   NotebookWrite:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: backend/handlers/notebook_post
+      Handler: backend/handlers/notebook_post.lambda_handler
       Runtime: python3.11
       Events:
         NotebookWriteApi:
