@@ -7,7 +7,7 @@ from datetime import datetime
 dynamodb = boto3.resource("dynamodb")
 table = dynamodb.Table(os.environ["TABLE_NAME"])
 
-def lambda_handler(event, context):
+def notepad_post(event, context):
     body = json.loads(event.get("body", "{}"))
 
     item = {
