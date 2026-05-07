@@ -1,6 +1,6 @@
 import json
 
-def lambda_handler(event, context):
+def notepad_post(event, context):
     return {
         "statusCode": 200,
         "body": json.dumps({
