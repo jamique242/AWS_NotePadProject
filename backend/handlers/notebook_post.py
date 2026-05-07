@@ -1,3 +1,8 @@
+#
+#This function reads the request body, 
+#creates a note object to be updated in teh table and then retrieves the new table data 
+#
+
 import json
 import uuid
 import os
