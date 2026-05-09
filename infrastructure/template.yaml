@@ -1,4 +1,11 @@
 Resources:
+  NotebookGet:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../
+      Handler: backend/handlers/notebook_get.notepad_get
+      Runtime: python3.11
+  
   NotebookWrite:
     Type: AWS::Serverless::Function
     Properties:
