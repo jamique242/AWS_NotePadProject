@@ -34,6 +34,35 @@ Resources:
           Properties:
             Path: /notes
             Method: post
+            
+  NotebookUpdate:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../
+      Handler: backend/handlers/notebook_update.notepad_update
+      Runtime: python3.11
+
+      Events:
+        NotebookApi:
+          Type: Api
+          Properties:
+            Path: /notes/{id}
+            Method: put
+
+
+  NotebookDelete:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../
+      Handler: backend/handlers/notebook_update.notepad_delete
+      Runtime: python3.11
+
+      Events:
+        NotebookApi:
+          Type: Api
+          Properties:
+            Path: /notes/{id}
+            Method: delete
 
   NotesTables:
     Type: AWS::DynamoDB::Table
