@@ -18,32 +18,30 @@ let notes = [];
 let currentIndex = 0;
 
 /*
-  Replace with your API Gateway endpoint later
+  API Endpoint
 */
-const API_URL = "YOUR_API_GATEWAY_URL";
+const API_URL = {taken out};
 
-/* -------------------------------- */
-/* SAMPLE NOTES */
-/* -------------------------------- */
+async function fetchNotes() {
 
-notes = [
-  {
-    id: 1,
-    title: "Math Study Guide",
-    body: "Review formulas and practice equations before Friday.",
-    createdAt: new Date()
-  },
-  {
-    id: 2,
-    title: "Weekend Plans",
-    body: "Movies, snacks, and maybe a trip to the park.",
-    createdAt: new Date()
+  try {
+
+    const response = await fetch(API_URL);
+
+    notes = await response.json();
+
+    renderNotes();
+
+  } catch (error) {
+
+    console.error("Error fetching notes:", error);
+
   }
-];
 
-/* -------------------------------- */
-/* RENDER NOTES */
-/* -------------------------------- */
+}
+
+fetchNotes();
+
 
 function renderNotes(filteredNotes = notes) {
 
@@ -72,24 +70,25 @@ function renderNotes(filteredNotes = notes) {
       noteCard.style.transform = "scale(1.01)";
     }
 
+
     noteCard.innerHTML = `
       <div class="note-title">${note.title}</div>
 
       <div class="note-body">
-        ${note.body}
+        ${note.note}
       </div>
 
       <div class="note-date">
-        ${new Date(note.createdAt).toLocaleString()}
+        ${new Date(note.updated_at||note.created_at).toLocaleString()}
       </div>
 
       <div class="note-actions">
 
-        <button class="edit-btn" onclick="editNote(${note.id})">
+        <button class="edit-btn" onclick="editNote('${note.noteId}')">
           Edit
         </button>
 
-        <button class="delete-btn" onclick="deleteNote(${note.id})">
+        <button class="delete-btn" onclick="deleteNote('${note.noteId}')">
           Delete
         </button>
 
@@ -106,7 +105,7 @@ function renderNotes(filteredNotes = notes) {
 /* ADD NOTE */
 /* -------------------------------- */
 
-addBtn.addEventListener("click", () => {
+addBtn.addEventListener("click", async () => {
 
   const title = titleInput.value.trim();
   const body = bodyInput.value.trim();
@@ -116,19 +115,33 @@ addBtn.addEventListener("click", () => {
     return;
   }
 
-  const newNote = {
-    id: Date.now(),
-    title,
-    body,
-    createdAt: new Date()
-  };
+  try {
 
-  notes.unshift(newNote);
+    await fetch(API_URL, {
 
-  titleInput.value = "";
-  bodyInput.value = "";
+      method: "POST",
 
-  renderNotes();
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        title,
+        note: body
+      })
+
+    });
+
+    titleInput.value = "";
+    bodyInput.value = "";
+
+    fetchNotes();
+
+  } catch (error) {
+
+    console.error("Error creating note:", error);
+
+  }
 
 });
 
@@ -136,7 +149,7 @@ addBtn.addEventListener("click", () => {
 /* DELETE NOTE */
 /* -------------------------------- */
 
-function deleteNote(id) {
+async function deleteNote(id) {
 
   const confirmDelete = confirm(
     "Are you sure you want to delete this note?"
@@ -144,19 +157,32 @@ function deleteNote(id) {
 
   if (!confirmDelete) return;
 
-  notes = notes.filter(note => note.id !== id);
+  try {
 
-  renderNotes();
+    await fetch(`${API_URL}/${id}`, {
+
+      method: "DELETE"
+
+    });
+
+    fetchNotes();
+
+  } catch (error) {
+
+    console.error("Error deleting note:", error);
+
+  }
 
 }
+
 
 /* -------------------------------- */
 /* EDIT NOTE */
 /* -------------------------------- */
 
-function editNote(id) {
+async function editNote(id) {
 
-  const note = notes.find(note => note.id === id);
+  const note = notes.find(note => note.noteId === id);
 
   const updatedTitle = prompt(
     "Edit title:",
@@ -165,7 +191,7 @@ function editNote(id) {
 
   const updatedBody = prompt(
     "Edit note:",
-    note.body
+    note.note
   );
 
   if (updatedTitle !== null) {
@@ -173,10 +199,36 @@ function editNote(id) {
   }
 
   if (updatedBody !== null) {
-    note.body = updatedBody;
+    note.note = updatedBody;
   }
 
-  renderNotes();
+  try {
+
+    await fetch(`${API_URL}/${id}`, {
+
+      method: "PUT",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        title: updatedTitle,
+        note: updatedBody
+      })
+
+    });
+
+    titleInput.value = "";
+    bodyInput.value = "";
+
+    fetchNotes();
+
+  } catch (error) {
+
+    console.error("Error updating note:", error);
+
+  }
 
 }
 
