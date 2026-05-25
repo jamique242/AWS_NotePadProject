@@ -20,7 +20,7 @@ let currentIndex = 0;
 /*
   API Endpoint
 */
-const API_URL = {taken out};
+const API_URL = "https://9aydjxk6f5.execute-api.us-east-1.amazonaws.com/dev/notes";
 
 async function fetchNotes() {
 
@@ -115,9 +115,19 @@ addBtn.addEventListener("click", async () => {
     return;
   }
 
+  if (title.length > 100) {
+  alert("Title is too long.");
+  return;
+  }
+
+  if (body.length > 5000) {
+    alert("Note is too long.");
+    return;
+  }
+
   try {
 
-    await fetch(API_URL, {
+    const response = await fetch(API_URL, {
 
       method: "POST",
 
@@ -137,6 +147,9 @@ addBtn.addEventListener("click", async () => {
 
     fetchNotes();
 
+   if (!response.ok) {
+      throw new Error("Failed to create note");
+    }
   } catch (error) {
 
     console.error("Error creating note:", error);
@@ -159,14 +172,16 @@ async function deleteNote(id) {
 
   try {
 
-    await fetch(`${API_URL}/${id}`, {
+    const response = await fetch(`${API_URL}/${id}`, {
 
       method: "DELETE"
 
     });
 
     fetchNotes();
-
+    if (!response.ok) {
+      throw new Error("Failed to delete note.")
+    }
   } catch (error) {
 
     console.error("Error deleting note:", error);
@@ -202,9 +217,19 @@ async function editNote(id) {
     note.note = updatedBody;
   }
 
+  if (updatedTitle.length > 100) {
+    alert("Title is too long.");
+    return;
+  }
+
+  if (updatedBody.length > 5000) {
+    alert("Note is too long.");
+    return;
+  }
+
   try {
 
-    await fetch(`${API_URL}/${id}`, {
+    const response = await fetch(`${API_URL}/${id}`, {
 
       method: "PUT",
 
@@ -221,7 +246,9 @@ async function editNote(id) {
 
     titleInput.value = "";
     bodyInput.value = "";
-
+    if (!response.ok){
+      throw new Error("Failed to update note.")
+    }
     fetchNotes();
 
   } catch (error) {
