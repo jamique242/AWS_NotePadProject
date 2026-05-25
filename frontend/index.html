@@ -1,1 +1,92 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <title>My Notebook</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Handwritten fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Short+Stack&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- doodles -->
+  <div class="doodle star">★</div>
+  <div class="doodle heart">♡</div>
+  <div class="doodle smile">☺</div>
+
+  <main class="container">
+
+    <header>
+      <h1>My Notebook</h1>
+      <p class="subtitle">Thoughts, ideas, reminders & random doodles</p>
+    </header>
+
+    <!-- create note -->
+    <section class="create-note">
+
+      <h2>Create a New Note</h2>
+
+      <input
+        type="text"
+        id="titleInput"
+        placeholder="Note title..."
+      />
+
+      <textarea
+        id="bodyInput"
+        placeholder="Write something..."
+      ></textarea>
+
+      <button id="addBtn">
+        Add Note
+      </button>
+
+    </section>
+
+    <!-- search -->
+    <section class="search-section">
+
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search notes..."
+      />
+
+    </section>
+
+    <!-- note navigation -->
+    <section class="note-nav">
+
+      <button id="prevBtn">
+        ← Previous
+      </button>
+
+      <span id="noteCounter">
+        0 Notes
+      </span>
+
+      <button id="nextBtn">
+        Next →
+      </button>
+
+    </section>
+
+    <!-- notes -->
+    <section id="notesContainer">
+
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+
+</body>
+</html>

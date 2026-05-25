@@ -1,1 +1,258 @@
+/* style.css */
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #fdfaf5,
+      #fdfaf5 32px,
+      #dfe8f7 33px
+    );
+
+  font-family: 'Patrick Hand', cursive;
+  min-height: 100vh;
+  color: #2b2b2b;
+  overflow-x: hidden;
+}
+
+/* notebook red margin line */
+body::before {
+  content: "";
+  position: fixed;
+  left: 70px;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: rgba(255, 110, 110, 0.5);
+}
+
+.container {
+  width: 90%;
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 40px 0 80px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+h1 {
+  font-family: 'Short Stack', cursive;
+  font-size: 4rem;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+/* create note card */
+.create-note {
+  background: #fffaf2;
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  margin-bottom: 30px;
+}
+
+.create-note h2 {
+  font-family: 'Short Stack', cursive;
+}
+
+input,
+textarea {
+  width: 100%;
+  border: none;
+  border-radius: 16px;
+  padding: 16px;
+  font-size: 1.1rem;
+  font-family: inherit;
+  background: white;
+
+  box-shadow: inset 0 0 0 2px #ece7df;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px #c7b8ff;
+}
+
+button {
+  border: none;
+  border-radius: 14px;
+  padding: 14px 18px;
+
+  font-size: 1rem;
+  font-family: 'Short Stack', cursive;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+#addBtn {
+  background: #d9c2ff;
+}
+
+.search-section {
+  margin-bottom: 25px;
+}
+
+#searchInput {
+  background: white;
+}
+
+/* nav */
+.note-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+
+  margin-bottom: 30px;
+}
+
+.note-nav button {
+  background: #fff0c9;
+}
+
+#noteCounter {
+  font-size: 1.2rem;
+}
+
+/* notes */
+#notesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.note-card {
+  background: rgba(255,255,255,0.92);
+
+  border-radius: 20px;
+  padding: 24px;
+
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+
+  position: relative;
+}
+
+.note-card::before {
+  content: "";
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 10px;
+  height: 100%;
+
+  border-radius: 20px 0 0 20px;
+
+  background: #b7d8ff;
+}
+
+.note-title {
+  font-family: 'Short Stack', cursive;
+  font-size: 1.8rem;
+
+  margin-bottom: 10px;
+}
+
+.note-body {
+  font-size: 1.2rem;
+  line-height: 1.5;
+
+  margin-bottom: 18px;
+}
+
+.note-date {
+  opacity: 0.6;
+  margin-bottom: 18px;
+}
+
+.note-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.edit-btn {
+  background: #d7e7ff;
+}
+
+.delete-btn {
+  background: #ffd9d9;
+}
+
+/* doodles */
+.doodle {
+  position: fixed;
+  font-size: 3rem;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.star {
+  top: 30px;
+  right: 60px;
+  color: #f6c945;
+}
+
+.heart {
+  bottom: 60px;
+  right: 80px;
+  color: #ff93b2;
+}
+
+.smile {
+  top: 120px;
+  left: 20px;
+  color: #f7d25d;
+}
+
+.empty-message {
+  text-align: center;
+  opacity: 0.7;
+  margin-top: 20px;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+
+  h1 {
+    font-size: 2.8rem;
+  }
+
+  .container {
+    width: 94%;
+  }
+
+  .note-nav {
+    flex-direction: column;
+  }
+
+}

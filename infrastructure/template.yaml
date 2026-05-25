@@ -1,13 +1,80 @@
 Resources:
+  NotebookGet:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../
+      Handler: backend/handlers/notebook_get.notepad_get
+      Runtime: python3.11
+      
+      Events:
+        NotebookGetApi:
+          Type: Api
+          Properties:
+            Path: /notes
+            Method: get
+
+  
   NotebookWrite:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: ../
       Handler: backend/handlers/notebook_post.notepad_post
       Runtime: python3.11
+      
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: posted_notepad
+      Environment:
+        Variables:
+          TABLE_NAME: posted_notepad
+      
       Events:
         NotebookWriteApi:
           Type: Api
           Properties:
             Path: /notes
             Method: post
+            
+  NotebookUpdate:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../
+      Handler: backend/handlers/notebook_update.notepad_update
+      Runtime: python3.11
+
+      Events:
+        NotebookApi:
+          Type: Api
+          Properties:
+            Path: /notes/{id}
+            Method: put
+
+
+  NotebookDelete:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../
+      Handler: backend/handlers/notebook_update.notepad_delete
+      Runtime: python3.11
+
+      Events:
+        NotebookApi:
+          Type: Api
+          Properties:
+            Path: /notes/{id}
+            Method: delete
+
+  NotesTables:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: posted_notepad
+      BillingMode: PAY_PER_REQUEST
+
+      AttributeDefinitions:
+        - AttributeName: note_id
+          AttributeType: S
+
+      KeySchema:
+        - AttributeName: note_id
+          KeyType: HASH
+
