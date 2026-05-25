@@ -20,7 +20,7 @@ let currentIndex = 0;
 /*
   API Endpoint
 */
-const API_URL = "https://9aydjxk6f5.execute-api.us-east-1.amazonaws.com/dev/notes";
+const API_URL = "removing-because I need to";
 
 async function fetchNotes() {
 
