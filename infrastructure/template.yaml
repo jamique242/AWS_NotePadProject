@@ -1,80 +1,63 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
 Resources:
-  NotebookGet:
+
+  NotebookApiFunction:
     Type: AWS::Serverless::Function
+
     Properties:
       CodeUri: ../
-      Handler: backend/handlers/notebook_get.notepad_get
+      Handler: backend/app.lambda_handler
       Runtime: python3.11
-      
+      Timeout: 10
+
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: notebook
+
+      Environment:
+        Variables:
+          TABLE_NAME: notebook
+
       Events:
-        NotebookGetApi:
+
+        GetNotes:
           Type: Api
           Properties:
             Path: /notes
             Method: get
 
-  
-  NotebookWrite:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: ../
-      Handler: backend/handlers/notebook_post.notepad_post
-      Runtime: python3.11
-      
-      Policies:
-        - DynamoDBCrudPolicy:
-            TableName: posted_notepad
-      Environment:
-        Variables:
-          TABLE_NAME: posted_notepad
-      
-      Events:
-        NotebookWriteApi:
+        PostNotes:
           Type: Api
           Properties:
             Path: /notes
             Method: post
-            
-  NotebookUpdate:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: ../
-      Handler: backend/handlers/notebook_update.notepad_update
-      Runtime: python3.11
 
-      Events:
-        NotebookApi:
+        PutNotes:
           Type: Api
           Properties:
             Path: /notes/{id}
             Method: put
 
-
-  NotebookDelete:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: ../
-      Handler: backend/handlers/notebook_update.notepad_delete
-      Runtime: python3.11
-
-      Events:
-        NotebookApi:
+        DeleteNotes:
           Type: Api
           Properties:
             Path: /notes/{id}
             Method: delete
 
-  NotesTables:
+
+  NotesTable:
     Type: AWS::DynamoDB::Table
+
     Properties:
-      TableName: posted_notepad
+      TableName: notebook
       BillingMode: PAY_PER_REQUEST
 
       AttributeDefinitions:
-        - AttributeName: note_id
+        - AttributeName: noteId
           AttributeType: S
 
       KeySchema:
-        - AttributeName: note_id
+        - AttributeName: noteId
           KeyType: HASH
-
