@@ -244,15 +244,47 @@ button:hover {
 @media (max-width: 768px) {
 
   h1 {
-    font-size: 2.8rem;
+    font-size: 2rem;
+    text-align: center;
   }
 
   .container {
     width: 94%;
+    padding: 1rem;
+  }
+
+  .controls {
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
   .note-nav {
     flex-direction: column;
   }
 
+  input,
+  textarea,
+  button {
+    width: 100%;
+  }
+
+  .note-card {
+    padding: 1rem;
+  }
+
+  .notes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .doodle,
+  .sticker {
+    display:  none;
+    transform: scale(0.6);
+    opacity: 0.5;
+  }
+   
+  body::before{
+    left: 20px;
+    /* display: none; */
+  }
 }
